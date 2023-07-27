@@ -1,4 +1,4 @@
-const { Schema, model } = require('mongoose');
+const { Schema, model, Types } = require('mongoose');
 
 
 const goalSchema = Schema({
@@ -6,6 +6,7 @@ const goalSchema = Schema({
         type: String,
         required: [true, 'Please add a text value'],
     },
+    owner: { ref: 'User', required: true, type: Schema.Types.ObjectId }
 }, {
     timestamps: true
 })
