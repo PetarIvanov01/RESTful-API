@@ -1,4 +1,4 @@
-const asyncHandler = require('express-async-handler')
+const asyncHandler = require('express-async-handler');
 const auth = require('../services/userService');
 
 const loginHandler = asyncHandler(async (req, res) => {
@@ -13,10 +13,10 @@ const loginHandler = asyncHandler(async (req, res) => {
         });
     }
     else {
-        res.status(400)
-        throw new Error('Not Authorized')
+        res.status(400).json({
+            message: 'Not Authorized'
+        });
     }
-
 
 })
 
@@ -35,9 +35,6 @@ const registerHandler = asyncHandler(async (req, res) => {
 
 })
 
-const privateHandler = asyncHandler(async (req, res) => {
-    res.status(200).json(req.user)
-})
 
 
-module.exports = { registerHandler, loginHandler, privateHandler }
+module.exports = { registerHandler, loginHandler }
