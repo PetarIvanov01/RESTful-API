@@ -1,66 +1,65 @@
-const Goal = require('../model/Goal')
+const Goal = require('../model/Goal');
+const UserProfile = require('../model/UserProfile');
+const { withTryCatch } = require('../util');
 
-async function get() {
-    try {
-        return await Goal.find({}).lean();
-    } catch (error) {
-        throw error
+
+const getAll = withTryCatch(async (skip) => {
+
+    //TODO pagination
+    return await Goal.find({}).skip(0).limit(4).lean();
+
+})
+
+const getById = withTryCatch(async (user) => {
+
+    return await Goal.find({ owner: user._id }).lean();
+
+})
+
+const create = withTryCatch(async (user, { title, image, description }) => {
+
+    const userGoals = await UserProfile.findOne({ userId: user._id });
+    if (!userGoals) {
+        throw new Error('Invalid Request');
     }
-}
+    const goals = await Goal.create({
+        title,
+        description,
+        image,
+        owner: user._id
+    })
 
-async function getById(user) {
-    try {
-        return await Goal.find({ owner: user._id }).lean();
-    } catch (error) {
-        throw error
+    userGoals.goals.push(goals);
+    await userGoals.save();
+
+    return goals;
+});
+
+const update = withTryCatch(async (id, data, user) => {
+
+    const goal = await Goal.findById(id);
+
+    if (goal.owner.toString() !== user._id) {
+        throw new Error('User not authorized');
     }
-}
 
-async function create(user, data) {
-    try {
-        const goals = await Goal.create({
-            text: data.text,
-            owner: user._id
-        });
+    return await Goal.findByIdAndUpdate(id, data, user);
+});
 
-        return goals
+const del = withTryCatch(async (id, user) => {
+    const goal = await Goal.findById(id);
 
-    } catch (error) {
-        throw error
+    if (goal.owner.toString() !== user._id) {
+        throw new Error('User not authorized')
     }
-}
 
-async function update(id, data, user) {
-    try {
-        const goal = await Goal.findById(id);
+    await Goal.findByIdAndDelete(id);
 
-        if (goal.owner.toString() !== user._id) {
-            throw new Error('User not authorized')
-        }
+})
 
-        return await Goal.findByIdAndUpdate(id, data, user);
-    } catch (error) {
-        throw error
-    }
-}
-
-async function del(id, user) {
-    try {
-        const goal = await Goal.findById(id)
-
-        if (goal.owner.toString() !== user._id) {
-            throw new Error('User not authorized')
-        }
-        console.log(id);
-        await Goal.findByIdAndDelete(id);
-
-    } catch (error) {
-        throw error
-    }
-}
 
 module.exports = {
-    get,
+    getAll,
     create,
     update,
     del,
