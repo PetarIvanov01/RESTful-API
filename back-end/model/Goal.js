@@ -1,12 +1,19 @@
-const { Schema, model, Types } = require('mongoose');
+const { Schema, model } = require('mongoose');
 
 
 const goalSchema = Schema({
-    text: {
+    title: {
         type: String,
-        required: [true, 'Please add a text value'],
+        required: true
     },
-    owner: { ref: 'User', required: true, type: Schema.Types.ObjectId }
+    description: {
+        type: String,
+        required: true
+    },
+    image: {
+        type: String,
+        required: true
+    },
 }, {
     timestamps: true
 })
