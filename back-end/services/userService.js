@@ -1,14 +1,14 @@
 const User = require('../model/User');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
-const asyncHandler = require('express-async-handler')
+const { withTryCatch } = require('../util');
 
-const register = asyncHandler(async ({ email, password }) => {
+const register = withTryCatch(async ({ email, password }) => {
 
-    const exsiting = await User.findOne({ email });
     if (email == '' || password == '') {
         throw new Error('All fields are required!');
     }
+    const exsiting = await User.findOne({ email });
 
     if (exsiting) {
         throw new Error('Email is taken!');
@@ -26,7 +26,7 @@ const register = asyncHandler(async ({ email, password }) => {
 
 })
 
-const login = asyncHandler(async ({ email, password }) => {
+const login = withTryCatch(async ({ email, password }) => {
 
     const user = await User.findOne({ email });
 
