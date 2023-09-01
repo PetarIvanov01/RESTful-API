@@ -46,14 +46,23 @@ const update = withTryCatch(async (id, data, user) => {
 });
 
 const del = withTryCatch(async (id, user) => {
+
+    const userGoals = await UserProfile.findOne({ userId: user._id });
     const goal = await Goal.findById(id);
+
+    if (!goal) {
+        throw new Error('Goal not found');
+    }
 
     if (goal.owner.toString() !== user._id) {
         throw new Error('User not authorized')
     }
 
-    await Goal.findByIdAndDelete(id);
+    const updatedGoals = userGoals.goals.filter(goalId => goalId.toString() !== id);
+    userGoals.goals = updatedGoals;
+    await userGoals.save();
 
+    await Goal.findByIdAndDelete(id);
 })
 
 
