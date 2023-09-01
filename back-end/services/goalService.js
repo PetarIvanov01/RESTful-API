@@ -5,7 +5,6 @@ const { withTryCatch } = require('../util');
 
 const getAll = withTryCatch(async (skip) => {
 
-    //TODO pagination
     return await Goal.find({}).skip(0).limit(4).lean();
 
 })
