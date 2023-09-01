@@ -23,4 +23,16 @@ const createProfileHandler = asyncHandler(async (req, res) => {
 
 })
 
-module.exports = { getProfileHandler, createProfileHandler }
+const editProfileHandler = asyncHandler(async (req, res) => {
+
+    const currentUserId = req.user._id;
+    const userId = req.params.userId;
+
+    const profileData = await profile.editProfileData(req.body, userId, currentUserId);
+
+    res.status(201).json(profileData);
+
+
+})
+
+module.exports = { getProfileHandler, createProfileHandler, editProfileHandler }
