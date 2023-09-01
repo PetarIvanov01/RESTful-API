@@ -1,8 +1,8 @@
 const Profile = require('../model/UserProfile')
 const { isValidObjectId } = require('mongoose')
-const asyncHandler = require('express-async-handler')
+const { withTryCatch } = require('../util');
 
-const getProfileData = asyncHandler(async (userId) => {
+const getProfileData = withTryCatch(async (userId) => {
 
     //TODO populate and return goals data with the payload
 
@@ -27,7 +27,7 @@ const getProfileData = asyncHandler(async (userId) => {
 
 })
 
-const createProfile = asyncHandler(async (data, userId) => {
+const createProfile = withTryCatch(async (data, userId) => {
 
     const hasProfile = await Profile.findOne({ userId })
 
@@ -48,8 +48,23 @@ const createProfile = asyncHandler(async (data, userId) => {
 
 })
 
+const editProfileData = withTryCatch(async (data, userId, currentUserId) => {
+
+    const isOwner = userId === currentUserId;
+
+    if (isOwner === false) {
+        throw new Error('User not authorized');
+    }
+    const profile = await Profile.findOne({ userId }).lean();
+    const id = profile._id.toString();
+
+    return await Profile.findByIdAndUpdate(id, data, { new: true });
+
+})
+
 
 module.exports = {
+    editProfileData,
     getProfileData,
     createProfile
 }
