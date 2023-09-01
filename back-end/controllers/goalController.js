@@ -1,11 +1,9 @@
 const asyncHandler = require('express-async-handler');
 const service = require('../services/goalService');
 
-//TODO Refactoring for project purposes
-
 const getAllGoals = asyncHandler(async (req, res) => {
 
-    const goals = await service.getAll();
+    const goals = res.paginatedResult;
 
     res.status(200)
         .json({
@@ -14,6 +12,7 @@ const getAllGoals = asyncHandler(async (req, res) => {
         })
 
 })
+
 const getGoalsById = asyncHandler(async (req, res) => {
     const goals = await service.getById(req.params.id);
 
@@ -26,7 +25,7 @@ const getGoalsById = asyncHandler(async (req, res) => {
 
 const createGoal = asyncHandler(async (req, res) => {
     if (!req.body) {
-        throw new Error('Text field !')
+        throw new Error('Invalid data!')
     }
     const goal = await service.create(req.user, req.body);
 
