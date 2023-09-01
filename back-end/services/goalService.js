@@ -2,13 +2,6 @@ const Goal = require('../model/Goal');
 const UserProfile = require('../model/UserProfile');
 const { withTryCatch } = require('../util');
 
-
-const getAll = withTryCatch(async (skip) => {
-
-    return await Goal.find({}).skip(0).limit(4).lean();
-
-})
-
 const getById = withTryCatch(async (user) => {
 
     return await Goal.find({ owner: user._id }).lean();
@@ -20,6 +13,9 @@ const create = withTryCatch(async (user, { title, image, description }) => {
     const userGoals = await UserProfile.findOne({ userId: user._id });
     if (!userGoals) {
         throw new Error('Invalid Request');
+    }
+    if (userGoals.goals.length >= 2) {
+        throw new Error('Exceeded Maximum Goals Limit!')
     }
     const goals = await Goal.create({
         title,
@@ -67,7 +63,6 @@ const del = withTryCatch(async (id, user) => {
 
 
 module.exports = {
-    getAll,
     create,
     update,
     del,
