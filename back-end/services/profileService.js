@@ -39,7 +39,7 @@ const createProfile = withTryCatch(async (data, userId) => {
         username: data.username,
         avatarImg: data.avatarImg,
         category: data.category,
-        about: data.about,
+        about: data.aboutMe,
     }
 
     const profile = await Profile.create(payload);
