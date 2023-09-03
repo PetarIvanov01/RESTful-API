@@ -10,7 +10,7 @@ const getProfileData = withTryCatch(async (userId) => {
         throw new Error('Invalid userId')
     }
 
-    const profileData = await Profile.findOne({ userId })
+    const profileData = await Profile.findOne({ userId }).populate('goals');
 
     if (!profileData) {
         throw new Error('No profile finded!');
@@ -21,6 +21,7 @@ const getProfileData = withTryCatch(async (userId) => {
         avatarImg: profileData.avatarImg,
         category: profileData.category,
         about: profileData.about,
+        goals: [...profileData.goals]
     }
 
     return payload
