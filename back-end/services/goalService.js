@@ -2,9 +2,10 @@ const Goal = require('../model/Goal');
 const UserProfile = require('../model/UserProfile');
 const { withTryCatch } = require('../util');
 
-const getById = withTryCatch(async (user) => {
+const getById = withTryCatch(async (goalId) => {
 
-    return await Goal.find({ owner: user._id }).lean();
+    return await Goal.findOne({ _id: goalId })
+    // return await Goal.find({ owner: user._id }).lean();
 
 })
 

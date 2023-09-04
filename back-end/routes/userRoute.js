@@ -11,7 +11,9 @@ router.post('/register', registerHandler);
 
 router.post('/profile', authorization, createProfileHandler);
 
-router.route('/profile/:userId').get(authorization, getProfileHandler).put(authorization, editProfileHandler);
+router.route('/profile/:userId')
+    .get(authorization, getProfileHandler)
+    .put(authorization, editProfileHandler);
 
 
 module.exports = router
