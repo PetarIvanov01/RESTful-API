@@ -23,6 +23,7 @@ Welcome to my Node.js Express MongoDB RESTful API learning project repository!
   - [Middleware for Authorization](#middleware-for-authorization)
 - [Installation](#installation)
 - [Testing](#testing)
+- [License](#license)
 
 ## Overview
 This project is a part of my journey to improve my skills in building RESTful APIs using Node.js, Express, and MongoDB. The primary purposes of this API project are:
@@ -292,4 +293,7 @@ Before you begin, ensure you have the following software and tools installed:
 ### Test
  Now that the API is running locally with MongoDB and your environment variables configured, you can use tools like `Postman` to make requests to the API endpoints. Refer to the "Usage" section of this README for details on available endpoints and their expected responses.
 
+## License
+
+This project is licensed under the MIT License.
 
