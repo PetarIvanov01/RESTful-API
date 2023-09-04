@@ -2,6 +2,28 @@
 
 Welcome to my Node.js Express MongoDB RESTful API learning project repository!
 
+## Table of Contents
+- [Overview](#overview)
+- [Disclaimer](#disclaimer)
+- [Usage](#usage)
+  - [User Endpoints](#user-endpoints)
+    - [User Login](#user-login)
+    - [User Registration](#user-registration)
+    - [User Profile Creation](#user-profile-creation)
+    - [Get User Profile](#get-user-profile)
+    - [Update User Profile](#update-user-profile)
+  - [Goals Endpoints](#goals-endpoints)
+    - [Get All Goals](#get-all-goals)
+    - [Create Goal](#create-goal)
+    - [Get Goal by ID](#get-goal-by-id)
+    - [Update Goal by ID (Owner Only)](#update-goal-by-id-owner-only)
+    - [Delete Goal by ID (Owner Only)](#delete-goal-by-id-owner-only)
+- [Authorization](#authorization)
+  - [JSON Web Tokens (JWT)](#json-web-tokens-jwt)
+  - [Middleware for Authorization](#middleware-for-authorization)
+- [Installation](#installation)
+- [Testing](#testing)
+
 ## Overview
 This project is a part of my journey to improve my skills in building RESTful APIs using Node.js, Express, and MongoDB. The primary purposes of this API project are:
 
@@ -204,3 +226,70 @@ This REST API is primarily developed for learning purposes. It may not adhere to
 - **Request Example:**
     ```http
     Authorization: token
+
+
+## Authorization
+
+### JSON Web Tokens (JWT)
+
+This API uses JSON Web Tokens (JWT) for user authentication and authorization. Here's how it works:
+
+- When a user registers or logs in successfully, they receive a JWT token.
+- This token should be included in the `Authorization` header of their subsequent requests to protected routes.
+- The API uses a middleware to verify and decode the JWT token to determine the user's identity and authorization level.
+
+### Middleware for Authorization
+
+To ensure that certain routes are accessible only to authenticated users, this API employs a middleware called `authorization`. Here's how it works:
+
+1. **Token Extraction:** When a user makes a request to a protected route, the client should include the JWT token in the `Authorization` header of the request.
+
+2. **Token Verification:** The `authorization` middleware intercepts the request and extracts the token from the `Authorization` header.
+
+3. **Token Decoding:** It then verifies the token's validity using the `verifyToken` function, which checks if the token is valid and not expired.
+
+4. **User Identification:** If the token is valid, the middleware decodes it to extract user information, such as the user's ID and email. This information is attached to the request object (`req.user`) for further processing in the route handler.
+
+5. **Access Granted:** If the token is valid and the user is authenticated, the middleware allows the request to proceed to the route handler. The route can then access the user's information from `req.user` and perform actions based on the user's identity.
+
+6. **Access Denied:** If the token is invalid, expired, or missing, the middleware throws an error, indicating that the user is not authorized to access the protected route.
+
+Remember to include the JWT token in the `Authorization` header of your requests to protected routes to ensure successful authentication and access.
+
+## Installation
+
+Follow these steps to set up and run the Node.js Express MongoDB RESTful API on your local machine:
+
+### Requirements
+
+Before you begin, ensure you have the following software and tools installed:
+
+- `Node.js`: Ensure you have Node.js installed. You can download it from the official website.
+- `MongoDB`: MongoDB is the database used by this API. Download and install the MongoDB Community Edition on your machine.
+
+### Clone the Repository
+
+1. Clone this repository to your local machine using your preferred method (HTTPS or SSH)
+
+2. Navigate to the project's root directory
+
+### Install Dependencies
+
+1. Install the project dependencies using npm
+
+2. Create a .env file based and use this example: 
+    ```
+    NODE_ENV=development
+    PORT=5000
+    MONGO_URI=mongodb://127.0.0.1:27017/RestApi
+    JWT_SECRET=dsadsad1221dasd
+
+### Start the Server
+
+ The server will start, and you'll see a message indicating that it's running, typically on port 5000 `(http://localhost:5000)`.
+
+
+### Test
+ Now that the API is running locally with MongoDB and your environment variables configured, you can use tools like `Postman` to make requests to the API endpoints. Refer to the "Usage" section of this README for details on available endpoints and their expected responses.
+
+
