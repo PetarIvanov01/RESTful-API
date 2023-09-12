@@ -13,14 +13,17 @@ const getProfileData = withTryCatch(async (userId) => {
     const profileData = await Profile.findOne({ userId }).populate('goals');
 
     if (!profileData) {
-        throw new Error('No profile finded!');
+        throw {
+            message: 'No profile finded!',
+            type: 'custom'
+        }
     }
 
     const payload = {
         username: profileData.username,
         avatarImg: profileData.avatarImg,
         category: profileData.category,
-        about: profileData.about,
+        aboutMe: profileData.aboutMe,
         goals: [...profileData.goals]
     }
 
@@ -33,14 +36,17 @@ const createProfile = withTryCatch(async (data, userId) => {
     const hasProfile = await Profile.findOne({ userId })
 
     if (hasProfile) {
-        throw new Error('You already have a profile!')
+        throw {
+            message: 'You already have a profile!',
+            type: 'custom'
+        };
     }
     const payload = {
         userId,
         username: data.username,
         avatarImg: data.avatarImg,
         category: data.category,
-        about: data.aboutMe,
+        aboutMe: data.aboutMe,
     }
 
     const profile = await Profile.create(payload);
@@ -54,7 +60,10 @@ const editProfileData = withTryCatch(async (data, userId, currentUserId) => {
     const isOwner = userId === currentUserId;
 
     if (isOwner === false) {
-        throw new Error('User not authorized');
+        throw {
+            message: 'User not authorized',
+            type: 'custom'
+        };
     }
     const profile = await Profile.findOne({ userId }).lean();
     const id = profile._id.toString();
