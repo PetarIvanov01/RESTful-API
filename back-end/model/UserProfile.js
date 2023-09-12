@@ -22,7 +22,7 @@ const userProfileSchema = Schema({
         type: String,
         required: true
     },
-    about:
+    aboutMe:
     {
         type: String,
         required: true
