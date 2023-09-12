@@ -12,7 +12,7 @@ router.post('/register', registerHandler);
 router.post('/profile', authorization, createProfileHandler);
 
 router.route('/profile/:userId')
-    .get(authorization, getProfileHandler)
+    .get(getProfileHandler)
     .put(authorization, editProfileHandler);
 
 
