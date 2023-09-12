@@ -1,9 +1,19 @@
 const errroHandler = (err, req, res, next) => {
-    const statusCode = res.statusCode ? res.statusCode : 500;
+    const typeError = err.type;
 
-    res.status(statusCode);
+    let statusCode = res.statusCode ? res.statusCode : 500;
 
-    res.status(400).json({
+    if (typeError === 'custom') {
+        statusCode = 403;
+        res.status(403);
+    }
+    else {
+        statusCode = 400;
+        res.status(400)
+    }
+
+    console.log(statusCode);
+    res.status(statusCode).json({
         message: err.message,
         stack: process.env.NODE_ENV === 'production' ? null : err.stack
     })
