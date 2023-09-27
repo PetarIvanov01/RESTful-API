@@ -4,13 +4,25 @@ const service = require('../services/goalService');
 const getAllGoals = asyncHandler(async (req, res) => {
 
     const goals = res.paginatedResult;
-
+    
     res.status(200)
         .json({
             message: 'Method is Get',
             items: goals
         })
 
+})
+
+const getBySearch = asyncHandler(async (req, res) => {
+
+
+    const goals = res.searchData;
+
+    res.status(200)
+        .json({
+            message: 'Method is Get',
+            items: goals
+        })
 })
 
 const getGoalsById = asyncHandler(async (req, res) => {
@@ -57,6 +69,6 @@ const deleteGoal = asyncHandler(async (req, res) => {
 
 
 module.exports = {
-    getGoalsById, createGoal, updateGoal, deleteGoal, getAllGoals
+    getGoalsById, getBySearch, createGoal, updateGoal, deleteGoal, getAllGoals
 }
 
