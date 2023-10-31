@@ -3,8 +3,8 @@ const service = require('../services/goalService');
 
 const getAllGoals = asyncHandler(async (req, res) => {
 
-    const goals = res.paginatedResult;
-    
+    const goals = res.paginatedResult || res.searchData;
+
     res.status(200)
         .json({
             message: 'Method is Get',
@@ -14,7 +14,6 @@ const getAllGoals = asyncHandler(async (req, res) => {
 })
 
 const getBySearch = asyncHandler(async (req, res) => {
-
 
     const goals = res.searchData;
 
