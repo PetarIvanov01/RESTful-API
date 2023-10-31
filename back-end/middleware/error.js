@@ -12,7 +12,6 @@ const errroHandler = (err, req, res, next) => {
         res.status(400)
     }
 
-    console.log(statusCode);
     res.status(statusCode).json({
         message: err.message,
         stack: process.env.NODE_ENV === 'production' ? null : err.stack
