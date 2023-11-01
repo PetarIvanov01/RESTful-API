@@ -4,7 +4,6 @@ const { withTryCatch } = require('../util');
 
 const getProfileData = withTryCatch(async (userId) => {
 
-    //TODO populate and return goals data with the payload
 
     if (!isValidObjectId(userId)) {
         throw new Error('Invalid userId')
@@ -24,7 +23,8 @@ const getProfileData = withTryCatch(async (userId) => {
         avatarImg: profileData.avatarImg,
         category: profileData.category,
         aboutMe: profileData.aboutMe,
-        goals: [...profileData.goals]
+        goals: [...profileData.goals],
+        followers: [...profileData.followers]
     }
 
     return payload
@@ -72,9 +72,57 @@ const editProfileData = withTryCatch(async (data, userId, currentUserId) => {
 
 })
 
+const followProfile = withTryCatch(async (currentUserId, profileId) => {
 
+    const profile = await Profile.findOne({ userId: profileId });
+    const currentUser = await Profile.findOne({ userId: currentUserId });
+
+    if (!profile || !currentUser) {
+        throw new Error('Profile not found.');
+    }
+
+    await Profile.findByIdAndUpdate(currentUser._id,
+        {
+            $push: { following: profileId }
+        },
+        { new: true })
+
+
+    return await Profile.findByIdAndUpdate(profile._id,
+        {
+            $push: { followers: currentUserId }
+        },
+        { new: true })
+
+})
+
+const unFollowProfile = withTryCatch(async (currentUserId, profileId) => {
+
+    const profile = await Profile.findOne({ userId: profileId });
+    const currentUser = await Profile.findOne({ userId: currentUserId });
+
+    if (!profile || !currentUser) {
+        throw new Error('Profile not found.');
+    }
+
+    await Profile.findByIdAndUpdate(currentUser._id,
+        {
+            $pull: { following: profileId }
+        },
+        { new: true })
+
+
+    return await Profile.findByIdAndUpdate(profile._id,
+        {
+            $pull: { followers: currentUserId }
+        },
+        { new: true })
+
+})
 module.exports = {
     editProfileData,
     getProfileData,
-    createProfile
+    createProfile,
+    followProfile,
+    unFollowProfile
 }
