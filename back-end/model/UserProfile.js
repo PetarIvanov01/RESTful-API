@@ -27,10 +27,9 @@ const userProfileSchema = Schema({
         type: String,
         required: true
     },
-    followers: 
-    {
-        type: String,
-    },
+    followers: [{ type: Schema.Types.ObjectId, ref: 'Profile' }],
+    following: [{ type: Schema.Types.ObjectId, ref: 'Profile' }],
+
     goals: [{ type: Schema.Types.ObjectId, ref: 'Goal' }]
 }, {
     timestamps: true
