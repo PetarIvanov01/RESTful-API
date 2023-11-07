@@ -2,8 +2,20 @@ const asyncHandler = require('express-async-handler');
 const service = require('../services/goalService');
 
 const getAllGoals = asyncHandler(async (req, res) => {
-
+    
     const goals = res.paginatedResult || res.searchData;
+
+    res.status(200)
+        .json({
+            message: 'Method is Get',
+            items: goals
+        })
+
+})
+
+const getHomeGoals = asyncHandler(async (req, res) => {
+
+    const goals = await service.getHome(req.query);
 
     res.status(200)
         .json({
@@ -68,6 +80,6 @@ const deleteGoal = asyncHandler(async (req, res) => {
 
 
 module.exports = {
-    getGoalsById, getBySearch, createGoal, updateGoal, deleteGoal, getAllGoals
+    getHomeGoals, getGoalsById, getBySearch, createGoal, updateGoal, deleteGoal, getAllGoals
 }
 
