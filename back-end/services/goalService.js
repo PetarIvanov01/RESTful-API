@@ -62,8 +62,23 @@ const del = withTryCatch(async (id, user) => {
     await Goal.findByIdAndDelete(id);
 })
 
+const getHome = withTryCatch(async (query) => {
 
+    const limit = parseInt(query.limit || 2);
+
+    const results = {};
+
+    results.results = await UserProfile.find()
+        .sort({ followers: -1 })
+        .limit(limit)
+        .populate('goals')
+        .exec();
+
+    return results;
+
+})
 module.exports = {
+    getHome,
     create,
     update,
     del,
