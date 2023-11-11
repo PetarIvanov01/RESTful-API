@@ -1,0 +1,27 @@
+[
+    {
+        "title": "Learn Web Development",
+        "description": "Complete a comprehensive web development course and build a portfolio of projects.",
+        "image": "https://blog.stoneriverelearning.com/wp-content/uploads/2017/05/23054.jpg"
+    },
+    {
+        "title": "Read 20 Books in a Year",
+        "description": "Read a variety of books covering different genres and expand your knowledge.",
+        "image": "https://c8.alamy.com/comp/2J669BH/reading-for-achieve-goals-education-success-concept-vector-flat-illustration-of-man-with-flag-and-award-standing-on-top-books-stack-staircase-of-bo-2J669BH.jpg"
+    },
+    {
+        "title": "Run a Half Marathon",
+        "description": "Train consistently to run a half marathon and achieve a personal fitness milestone.",
+        "image": "https://c8.alamy.com/comp/2F6CXDN/runner-wins-the-marathon-the-finish-line-the-concept-of-achieving-goals-man-is-running-achieve-goal-way-to-victory-success-vector-illustration-2F6CXDN.jpg"
+    },
+    {
+        "title": "Learn a New Language",
+        "description": "Dedicate time to learn and become proficient in a new language.",
+        "image": "https://img.freepik.com/free-vector/language-learning-camp-abstract-concept-illustration_335657-2494.jpg?w=2000"
+    },
+    {
+        "title": "Start a Blog",
+        "description": "Share your thoughts and experiences by starting and maintaining a personal blog.",
+        "image": "https://d25yuvogekh0nj.cloudfront.net/2020/01/Your-Ultimate-guide-to-setting-SMART-Goals-Blog-Banners-1250x500.png"
+    }
+]

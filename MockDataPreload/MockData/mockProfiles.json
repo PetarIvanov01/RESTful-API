@@ -1,0 +1,47 @@
+[
+    {
+        "username": "pesh0",
+        "avatarImg": {
+            "value": "/imgs/Avatars/Male-1.png",
+            "label": "Male 1"
+        },
+        "category": "career",
+        "aboutMe": "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec qu"
+    },
+    {
+        "username": "tqnata",
+        "avatarImg": {
+            "value": "/imgs/Avatars/Male-2.png",
+            "label": "Male 2"
+        },
+        "category": "lifestyle",
+        "aboutMe": "Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta."
+    },
+    {
+        "username": "gogo",
+        "avatarImg": {
+            "value": "/imgs/Avatars/Male-3.png",
+            "label": "Male 3"
+        },
+        "category": "sport",
+        "aboutMe": "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis p"
+    },
+    {
+        "username": "emcho",
+        "avatarImg": {
+            "value": "/imgs/Avatars/Male-2.png",
+            "label": "Male 2"
+        },
+        "category": "lifestyle",
+        "aboutMe": "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis p"
+    },
+    {
+        "username": "dani",
+        "avatarImg": {
+            "value": "/imgs/Avatars/Women-1.png",
+            "label": "Women 1"
+        },
+        "category": "career",
+        "aboutMe": "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis p"
+    }
+]
