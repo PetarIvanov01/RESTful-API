@@ -12,10 +12,15 @@ const userProfileSchema = Schema({
         type: String,
         required: true
     },
-    avatarImg:
-    {
-        type: String,
-        required: true,
+    avatarImg: {
+        value: {
+            type: String,
+            required: true,
+        },
+        label: {
+            type: String,
+            required: true
+        }
     },
     category:
     {
