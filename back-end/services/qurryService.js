@@ -1,13 +1,24 @@
 const Profile = require('../model/UserProfile');
 const { withTryCatch } = require('../util');
 
+
 const getQueriesData = withTryCatch(async (queries) => {
     const results = {};
-    const searchQuery = queries.search;
 
-    const searchObj = {
-        username: { $regex: new RegExp(searchQuery, "i") }
+    const searchValue = queries.search;
+    const filterValue = queries.category;
+
+    let searchObj = {}
+
+    if (searchValue || filterValue) {
+        searchObj = {
+            $and: [{
+                username: { $regex: new RegExp(searchValue, "i") },
+                category: { $regex: new RegExp(filterValue, "i") }
+            }]
+        }
     }
+
     const searchCount = await Profile.countDocuments(searchObj);
 
     const page = parseInt(queries.page || 1);
