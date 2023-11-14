@@ -39,8 +39,6 @@ const followProfileHandler = asyncHandler(async (req, res) => {
 
     const { currentUserId, profileId } = req.body;
 
-    console.log(currentUserId, profileId);
-
     const profileData = await profile.followProfile(currentUserId, profileId)
 
     res.status(200).json(profileData);

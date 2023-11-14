@@ -5,7 +5,7 @@ const { withTryCatch } = require('../util');
 
 const register = withTryCatch(async ({ email, password }) => {
 
-    if (email == '' || password == '') {
+    if (email === '' || password === '' || email === undefined || password === undefined) {
         throw new Error('All fields are required!');
     }
     const exsiting = await User.findOne({ email });
@@ -13,11 +13,10 @@ const register = withTryCatch(async ({ email, password }) => {
     if (exsiting) {
         throw new Error('Email is taken!');
     }
-    const hashedPassword = await bcrypt.hash(password, 10);
 
     const user = await User.create({
         email,
-        password: hashedPassword
+        password
     });
 
     const token = createSession(user._id, user.email);

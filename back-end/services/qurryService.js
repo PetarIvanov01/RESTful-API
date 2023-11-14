@@ -9,7 +9,7 @@ const getQueriesData = withTryCatch(async (queries) => {
     const filterValue = queries.category;
 
     let searchObj = {}
-
+    
     if (searchValue || filterValue) {
         searchObj = {
             $and: [{
@@ -18,7 +18,6 @@ const getQueriesData = withTryCatch(async (queries) => {
             }]
         }
     }
-
     const searchCount = await Profile.countDocuments(searchObj);
 
     const page = parseInt(queries.page || 1);
