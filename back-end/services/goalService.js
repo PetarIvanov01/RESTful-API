@@ -39,7 +39,9 @@ const update = withTryCatch(async (id, data, user) => {
         throw new Error('User not authorized');
     }
 
-    return await Goal.findByIdAndUpdate(id, data, user);
+    const options = { new: true, runValidators: true };
+
+    return await Goal.findOneAndUpdate({ _id: id, owner: user._id }, data, options);
 });
 
 const del = withTryCatch(async (id, user) => {
