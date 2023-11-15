@@ -1,5 +1,30 @@
 const asyncHandler = require('express-async-handler');
 const profile = require('../services/profileService');
+const { getQueriesData } = require('../services/qurryService');
+
+const getAllProfiles = asyncHandler(async (req, res) => {
+
+    const data = await getQueriesData(req.query)
+
+    res.status(200)
+        .json({
+            message: 'Method is Get',
+            items: data
+        })
+
+})
+
+const getHomeProfiles = asyncHandler(async (req, res) => {
+
+    const goals = await profile.getHome(req.query);
+
+    res.status(200)
+        .json({
+            message: 'Method is Get',
+            items: goals
+        })
+
+})
 
 const getProfileHandler = asyncHandler(async (req, res) => {
 
@@ -52,4 +77,12 @@ const unFollowProfileHandler = asyncHandler(async (req, res) => {
 
     res.status(200).json(profileData);
 })
-module.exports = { getProfileHandler, createProfileHandler, editProfileHandler, followProfileHandler, unFollowProfileHandler }
+module.exports = {
+    getAllProfiles,
+    getHomeProfiles,
+    getProfileHandler,
+    createProfileHandler,
+    editProfileHandler,
+    followProfileHandler,
+    unFollowProfileHandler
+}

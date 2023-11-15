@@ -1,13 +1,14 @@
-const { getGoalsById, createGoal, updateGoal, deleteGoal, getAllGoals, getBySearch, getHomeGoals } = require('../controllers/goalController');
+const { getGoalsById, createGoal, updateGoal, deleteGoal } = require('../controllers/goalController');
+const { getAllProfiles, getHomeProfiles } = require('../controllers/profileController');
 const authorization = require('../middleware/auth');
 const router = require('express').Router();
 
 router.route('/')
-    .get(getAllGoals)
+    .get(getAllProfiles)
     .post(authorization, createGoal);
 
 router.route('/home')
-    .get(getHomeGoals)
+    .get(getHomeProfiles)
 
 router.route('/:id')
     .get(getGoalsById).put(authorization, updateGoal)

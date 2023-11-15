@@ -1,41 +1,6 @@
 const asyncHandler = require('express-async-handler');
 const service = require('../services/goalService');
-const { getQueriesData } = require('../services/qurryService');
 
-const getAllGoals = asyncHandler(async (req, res) => {
-    
-    const data = await getQueriesData(req.query)
-
-    res.status(200)
-        .json({
-            message: 'Method is Get',
-            items: data
-        })
-
-})
-
-const getHomeGoals = asyncHandler(async (req, res) => {
-
-    const goals = await service.getHome(req.query);
-
-    res.status(200)
-        .json({
-            message: 'Method is Get',
-            items: goals
-        })
-
-})
-
-const getBySearch = asyncHandler(async (req, res) => {
-
-    const goals = res.searchData;
-
-    res.status(200)
-        .json({
-            message: 'Method is Get',
-            items: goals
-        })
-})
 
 const getGoalsById = asyncHandler(async (req, res) => {
     const goals = await service.getById(req.params.id);
@@ -81,6 +46,6 @@ const deleteGoal = asyncHandler(async (req, res) => {
 
 
 module.exports = {
-    getHomeGoals, getGoalsById, getBySearch, createGoal, updateGoal, deleteGoal, getAllGoals
+    getGoalsById, createGoal, updateGoal, deleteGoal,
 }
 

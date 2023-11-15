@@ -5,7 +5,6 @@ const { withTryCatch } = require('../util');
 const getById = withTryCatch(async (goalId) => {
 
     return await Goal.findOne({ _id: goalId })
-    // return await Goal.find({ owner: user._id }).lean();
 
 })
 
@@ -64,23 +63,7 @@ const del = withTryCatch(async (id, user) => {
     await Goal.findByIdAndDelete(id);
 })
 
-const getHome = withTryCatch(async (query) => {
-
-    const limit = parseInt(query.limit || 2);
-
-    const results = {};
-
-    results.results = await UserProfile.find()
-        .sort({ followers: -1 })
-        .limit(limit)
-        .populate('goals')
-        .exec();
-
-    return results;
-
-})
 module.exports = {
-    getHome,
     create,
     update,
     del,

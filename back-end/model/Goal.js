@@ -49,6 +49,8 @@ const goalSchema = Schema(
                 },
             ],
         },
+        likes: [{ type: Schema.Types.ObjectId, ref: 'Profile' }]
+        ,
         owner: {
             type: Schema.Types.ObjectId,
             required: [true, 'Owner ID is required'],
