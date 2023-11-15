@@ -119,10 +119,46 @@ const unFollowProfile = withTryCatch(async (currentUserId, profileId) => {
         { new: true })
 
 })
+
+const getHome = withTryCatch(async (query) => {
+
+    const limit = parseInt(query.limit || 2);
+
+    const results = {};
+    const profiles = await Profile.aggregate([
+        {
+            $addFields: {
+                followersCount: { $size: '$followers' }
+            }
+        },
+        {
+            $sort: {
+                followersCount: -1
+            }
+        },
+        {
+            $limit: limit
+        },
+        {
+            $lookup: {
+                from: 'goals',
+                localField: 'goals',
+                foreignField: '_id',
+                as: 'goals'
+            }
+        }
+    ]);
+
+    results.results = profiles
+
+    return results;
+
+})
 module.exports = {
     editProfileData,
     getProfileData,
     createProfile,
     followProfile,
-    unFollowProfile
+    unFollowProfile,
+    getHome
 }
