@@ -4,7 +4,7 @@ const predefinedAvatars = require('../../MockDataPreload/MockData/mockAvatars.js
 
 const validImageUrlValidator = (value) => {
     const matchingAvatar = predefinedAvatars.some(
-        (predefinedAvatar) =>  predefinedAvatar.value === value
+        (predefinedAvatar) => predefinedAvatar.value === value
     );
     return matchingAvatar;
 };
@@ -61,7 +61,7 @@ const userProfileSchema = Schema({
     },
     followers: [{ type: Schema.Types.ObjectId, ref: 'Profile' }],
     following: [{ type: Schema.Types.ObjectId, ref: 'Profile' }],
-
+    liked: [{ type: Schema.Types.ObjectId, ref: 'Goal' }],
     goals: [{ type: Schema.Types.ObjectId, ref: 'Goal' }]
 }, {
     timestamps: true
