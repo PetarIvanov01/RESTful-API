@@ -2,9 +2,8 @@ const mongoose = require('mongoose');
 const GoalModel = require('../back-end/model/Goal');
 const UserModel = require('../back-end/model/User');
 const ProfileModel = require('../back-end/model/UserProfile');
-const bcrypt = require('bcrypt');
 
-mongoose.connect('mongodb://127.0.0.1:27017/network', { useNewUrlParser: true, useUnifiedTopology: true });
+mongoose.connect('mongodb://127.0.0.1:27017/network');
 
 const mockUsers = require('./MockData/mockUsers.json');
 const mockProfiles = require('./MockData/mockProfiles.json');
@@ -16,7 +15,11 @@ const insertMockUsers = async () => {
         await ProfileModel.deleteMany({});
         await GoalModel.deleteMany({});
 
-        const insertedUsers = await UserModel.insertMany(mockUsers.map(u => ({ ...u, password: bcrypt.hashSync(u.password, 10) })));
+        let insertedUsers = [];
+
+        for (const user of mockUsers) {
+            insertedUsers.push(await UserModel.create(user))
+        }
 
         let profiles = []
         for (let i = 0; i < insertedUsers.length; i++) {
@@ -27,10 +30,18 @@ const insertMockUsers = async () => {
                 ...mockProfiles[i]
             }))
         }
+        let insertedGoals = []
 
-        const insertedGoals = await GoalModel.insertMany(
-            mockGoals.map((goal,i) => ({ ...goal, owner: insertedUsers[i]._id }))
-        );
+        for (let i = 0; i < mockGoals.length; i++) {
+            const goal = mockGoals[i];
+            insertedGoals.push(
+                await GoalModel.create({
+                    ...goal,
+                    owner: profiles[i].userId
+                }
+                )
+            )
+        }
 
         for (let i = 0; i < profiles.length; i++) {
 
