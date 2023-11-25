@@ -1,4 +1,6 @@
 const { Schema, model } = require('mongoose');
+const {_cascadeDeleteGoalFromProfile,_cascadeDeleteLikedFromProfile } = require('./middlewares/cascadeDeletion');
+
 
 const wordCountValidatorExceed = (value) => {
     const words = value.split(/\s+/).filter(word => word.length > 0);
@@ -51,8 +53,12 @@ const goalSchema = Schema(
         },
         likes: [{ type: Schema.Types.ObjectId, ref: 'Profile' }]
         ,
+        comments: [{ type: Schema.Types.ObjectId, ref: 'Comment' }]
+        ,
         owner: {
             type: Schema.Types.ObjectId,
+            ref: 'Profile',
+            field: 'userId',
             required: [true, 'Owner ID is required'],
         },
     },
@@ -61,4 +67,25 @@ const goalSchema = Schema(
     }
 );
 
-module.exports = model('Goal', goalSchema);
+goalSchema.virtual('ownerProfile', {
+    ref: 'Profile',
+    localField: 'owner',
+    foreignField: 'userId',
+    justOne: true
+});
+goalSchema.virtual('likedProfile', {
+    ref: 'Profile',
+    localField: 'likes',
+    foreignField: 'userId'
+});
+
+goalSchema.set('toObject', { virtuals: true });
+
+goalSchema.pre('findOneAndDelete', _cascadeDeleteLikedFromProfile)
+goalSchema.pre('findOneAndDelete', _cascadeDeleteGoalFromProfile)
+
+const Goal = model('Goal', goalSchema);
+module.exports = Goal;
+
+
+
