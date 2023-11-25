@@ -19,6 +19,7 @@ const validAvatarValidator = (label) => {
 const userProfileSchema = Schema({
     userId: {
         type: Schema.Types.ObjectId,
+        ref: 'User',
         required: [true, 'User ID is required'],
     },
     username: {
@@ -62,11 +63,10 @@ const userProfileSchema = Schema({
     followers: [{ type: Schema.Types.ObjectId, ref: 'Profile' }],
     following: [{ type: Schema.Types.ObjectId, ref: 'Profile' }],
     liked: [{ type: Schema.Types.ObjectId, ref: 'Goal' }],
-    goals: [{ type: Schema.Types.ObjectId, ref: 'Goal' }]
+    goals: [{ type: Schema.Types.ObjectId, ref: 'Goal' }],
+    comments: [{ type: Schema.Types.ObjectId, ref: 'Comment' }]
 }, {
     timestamps: true
 })
 
 module.exports = model('Profile', userProfileSchema);
-
-
