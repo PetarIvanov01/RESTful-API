@@ -50,12 +50,12 @@ function createSession(_id, email) {
         email
     };
 
-    return jwt.sign(payload, process.env.JWT_SECTER);
+    return jwt.sign(payload, process.env.JWT_SECRET, {expiresIn: '1 day'});
 }
 
 function verifyToken(token) {
-
-    return jwt.verify(token, process.env.JWT_SECTER);
+    
+    return jwt.verify(token, process.env.JWT_SECRET);
 
 }
 
