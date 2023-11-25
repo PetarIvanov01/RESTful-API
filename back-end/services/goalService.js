@@ -45,7 +45,6 @@ const update = withTryCatch(async (id, data, user) => {
 
 const del = withTryCatch(async (id, user) => {
 
-    const userGoals = await Profile.findOne({ userId: user._id });
     const goal = await Goal.findById(id);
 
     if (!goal) {
@@ -56,11 +55,8 @@ const del = withTryCatch(async (id, user) => {
         throw new Error('User not authorized')
     }
 
-    const updatedGoals = userGoals.goals.filter(goalId => goalId.toString() !== id);
-    userGoals.goals = updatedGoals;
-    await userGoals.save();
 
-    await Goal.findByIdAndDelete(id);
+    await Goal.findOneAndDelete({ _id: id });
 })
 
 const like = withTryCatch(async (currentUserId, postId) => {
