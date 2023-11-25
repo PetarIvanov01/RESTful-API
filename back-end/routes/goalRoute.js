@@ -11,7 +11,8 @@ router.route('/home')
     .get(getHomeProfiles)
 
 router.route('/:id')
-    .get(getGoalsById).put(authorization, updateGoal)
+    .get(getGoalsById)
+    .put(authorization, updateGoal)
     .delete(authorization, deleteGoal);
 
 router.post('/like', authorization, likeGoal);

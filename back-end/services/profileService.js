@@ -19,6 +19,7 @@ const getProfileData = withTryCatch(async (userId) => {
     }
 
     const payload = {
+        id: profileData.userId,
         username: profileData.username,
         avatarImg: profileData.avatarImg,
         category: profileData.category,
