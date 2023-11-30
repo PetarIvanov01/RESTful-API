@@ -1,4 +1,4 @@
-const { getGoalsById, createGoal, updateGoal, deleteGoal, likeGoal, unLikeGoal } = require('../controllers/goalController');
+const { getGoalsById, createGoal, updateGoal, deleteGoal, likeGoal, unLikeGoal, createComment } = require('../controllers/goalController');
 const { getAllProfiles, getHomeProfiles } = require('../controllers/profileController');
 const authorization = require('../middleware/auth');
 const router = require('express').Router();
@@ -17,5 +17,8 @@ router.route('/:id')
 
 router.post('/like', authorization, likeGoal);
 router.post('/un-like', authorization, unLikeGoal);
+
+router.route('/:id/comments')
+    .post(authorization, createComment)
 
 module.exports = router;
