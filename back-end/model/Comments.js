@@ -1,28 +1,28 @@
-const mongoose = require('mongoose');
+const { model, Schema } = require('mongoose');
 
-const commentSchema = new mongoose.Schema(
+const commentSchema = new Schema(
     {
         message: {
             type: String,
             required: true
         },
         userId: {
-            type: mongoose.Schema.Types.ObjectId,
+            type: Schema.Types.ObjectId,
             ref: 'Profile',
             required: true
         },
         postId: {
-            type: mongoose.Schema.Types.ObjectId,
+            type: Schema.Types.ObjectId,
             ref: 'Goal',
             required: true
         },
         parent: {
-            type: mongoose.Schema.Types.ObjectId,
+            type: Schema.Types.ObjectId,
             ref: 'Comment',
             default: null
         },
         children: [{
-            type: mongoose.Schema.Types.ObjectId,
+            type: Schema.Types.ObjectId,
             ref: 'Comment',
         }]
     }
@@ -32,5 +32,5 @@ const commentSchema = new mongoose.Schema(
     }
 );
 
-mongoose.model('Comment', commentSchema);
-module.exports = commentSchema;
+const Comment = model('Comment', commentSchema);
+module.exports = Comment;

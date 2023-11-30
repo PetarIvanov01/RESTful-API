@@ -1,6 +1,6 @@
 [
     {
-        "username": "pesh0",
+        "username": "petar",
         "avatarImg": {
             "value": "/imgs/Avatars/Male-1.png",
             "label": "Male 1"
@@ -9,7 +9,7 @@
         "aboutMe": "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec qu"
     },
     {
-        "username": "tqnata",
+        "username": "stoyan",
         "avatarImg": {
             "value": "/imgs/Avatars/Male-2.png",
             "label": "Male 2"
