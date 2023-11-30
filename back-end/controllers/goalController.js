@@ -57,7 +57,6 @@ const likeGoal = asyncHandler(async (req, res) => {
     });
 });
 
-
 const unLikeGoal = asyncHandler(async (req, res) => {
     const { currentUserId, postId } = req.body;
     if (!currentUserId || !postId) {
@@ -71,6 +70,18 @@ const unLikeGoal = asyncHandler(async (req, res) => {
     });
 });
 
+const createComment = asyncHandler(async (req, res) => {
+
+    const { id } = req.params;
+    const { message, userId, parentId = null } = req.body;
+
+    const comment = await service.createComment(id, message, userId, parentId)
+
+    res.status(200).json({
+        message: 'Comment Successfully created',
+        comment
+    });
+});
 
 module.exports = {
     getGoalsById,
@@ -78,6 +89,7 @@ module.exports = {
     updateGoal,
     deleteGoal,
     likeGoal,
-    unLikeGoal
+    unLikeGoal,
+    createComment
 }
 
