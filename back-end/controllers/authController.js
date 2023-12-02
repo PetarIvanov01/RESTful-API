@@ -9,7 +9,8 @@ const loginHandler = asyncHandler(async (req, res) => {
         res.status(200).json({
             _id: user._id,
             email: user.email,
-            token
+            token,
+            customized : user.customized
         });
     }
     else {
@@ -28,7 +29,8 @@ const registerHandler = asyncHandler(async (req, res) => {
         res.status(201).json({
             _id: user._id,
             email: user.email,
-            token
+            token,
+            customized : user.customized
         });
     }
 
