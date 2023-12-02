@@ -1,22 +1,27 @@
 [
     {
         "email": "petar@gmail.com",
-        "password": "p123456"
+        "password": "p123456",
+        "customized": true
     },
     {
         "email": "stoyan@gmail.com",
-        "password": "s123456"
+        "password": "s123456",
+        "customized": true
     },
     {
         "email": "georgi@gmail.com",
-        "password": "g123456"
+        "password": "g123456",
+        "customized": true
     },
     {
         "email": "emil@gmail.com",
-        "password": "e123456"
+        "password": "e123456",
+        "customized": true
     },
     {
         "email": "daniela@gmail.com",
-        "password": "d123456"
+        "password": "d123456",
+        "customized": true
     }
 ]
