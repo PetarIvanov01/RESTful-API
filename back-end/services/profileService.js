@@ -1,6 +1,7 @@
 const Profile = require('../model/UserProfile')
 const { isValidObjectId } = require('mongoose')
 const { withTryCatch } = require('../util');
+const User = require('../model/User');
 
 const getProfileData = withTryCatch(async (userId) => {
 
@@ -51,6 +52,8 @@ const createProfile = withTryCatch(async (data, userId) => {
     }
 
     const profile = await Profile.create(payload);
+    
+    await User.findByIdAndUpdate(userId, { customized: true });
 
     return profile
 
