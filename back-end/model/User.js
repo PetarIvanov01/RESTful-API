@@ -25,6 +25,11 @@ const userSchema = Schema({
         required: true,
         minLength: [6, 'Password is too short!'],
         validate: [validatePassword, 'Password must include a number!']
+    },
+    customized:
+    {
+        type: Boolean,
+        default: false
     }
 
 }, {
