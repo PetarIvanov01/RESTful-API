@@ -38,8 +38,8 @@ const login = withTryCatch(async ({ email, password }) => {
         throw new Error('Incorrect username or password');
     }
 
-    const token = createSession(user._id, user.email);
-
+    const token = createSession(user._id, user.email, user.customized);
+    
     return { user, token };
 
 })
@@ -50,11 +50,11 @@ function createSession(_id, email) {
         email
     };
 
-    return jwt.sign(payload, process.env.JWT_SECRET, {expiresIn: '1 day'});
+    return jwt.sign(payload, process.env.JWT_SECRET, { expiresIn: '1 day' });
 }
 
 function verifyToken(token) {
-    
+
     return jwt.verify(token, process.env.JWT_SECRET);
 
 }

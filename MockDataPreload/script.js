@@ -3,7 +3,7 @@ const GoalModel = require('../back-end/model/Goal');
 const UserModel = require('../back-end/model/User');
 const ProfileModel = require('../back-end/model/UserProfile');
 
-mongoose.connect('mongodb://127.0.0.1:27017/network');
+mongoose.connect('mongodb+srv://Admin_user:iKl9CJVpnEgIRvh2@cluster0.kht86mj.mongodb.net/custmoDb');
 
 const mockUsers = require('./MockData/mockUsers.json');
 const mockProfiles = require('./MockData/mockProfiles.json');
