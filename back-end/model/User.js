@@ -24,7 +24,7 @@ const userSchema = Schema({
         type: String,
         required: true,
         minLength: [6, 'Password is too short!'],
-        validate: [validatePassword, 'Password must include a number!']
+        validate: [validatePassword, 'Password must include a number and letters!']
     },
     customized:
     {
