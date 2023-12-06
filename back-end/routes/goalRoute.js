@@ -1,5 +1,8 @@
-const { getGoalsById, createGoal, updateGoal, deleteGoal, likeGoal, unLikeGoal, createComment } = require('../controllers/goalController');
-const { getAllProfiles, getHomeProfiles } = require('../controllers/profileController');
+const { createComment, getComments } = require('../controllers/goalControllers/comments');
+const { createGoal, updateGoal, deleteGoal, getGoalsById } = require('../controllers/goalControllers/goal');
+const { likeGoal, unLikeGoal } = require('../controllers/goalControllers/likes');
+const { getAllProfiles, getHomeProfiles } = require('../controllers/profileControllers/profile');
+
 const authorization = require('../middleware/auth');
 const router = require('express').Router();
 
@@ -18,7 +21,8 @@ router.route('/:id')
 router.post('/like', authorization, likeGoal);
 router.post('/un-like', authorization, unLikeGoal);
 
-router.route('/:id/comments')
-    .post(authorization, createComment)
+router.route('/:postId/comments')
+    .get(getComments)
+    .post(authorization, createComment);
 
 module.exports = router;

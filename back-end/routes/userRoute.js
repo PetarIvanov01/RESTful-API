@@ -1,9 +1,9 @@
 const { loginHandler, registerHandler } = require('../controllers/authController');
-const { createProfileHandler, getProfileHandler, editProfileHandler, followProfileHandler, unFollowProfileHandler } = require('../controllers/profileController')
+const { followProfileHandler, unFollowProfileHandler } = require('../controllers/profileControllers/followers');
+const { createProfileHandler, getProfileHandler, editProfileHandler } = require('../controllers/profileControllers/profile');
+
 const authorization = require('../middleware/auth');
-
 const router = require('express').Router();
-
 
 router.post('/login', loginHandler);
 
@@ -18,5 +18,4 @@ router.route('/profile/:userId')
     .get(getProfileHandler)
     .put(authorization, editProfileHandler);
 
-
-module.exports = router
+module.exports = router;
