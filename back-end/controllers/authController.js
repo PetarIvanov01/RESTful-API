@@ -17,9 +17,9 @@ const loginHandler = asyncHandler(async (req, res) => {
         res.status(400).json({
             message: 'Not Authorized'
         });
-    }
+    };
 
-})
+});
 
 const registerHandler = asyncHandler(async (req, res) => {
 
@@ -32,11 +32,7 @@ const registerHandler = asyncHandler(async (req, res) => {
             token,
             customized : user.customized
         });
-    }
-
-
-})
-
-
+    };
+});
 
 module.exports = { registerHandler, loginHandler }

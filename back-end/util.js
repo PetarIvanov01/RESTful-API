@@ -5,6 +5,4 @@ function withTryCatch(func) {
         throw error;
     }
 }
-
-
 module.exports = { withTryCatch }

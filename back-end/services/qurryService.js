@@ -1,14 +1,13 @@
 const Profile = require('../model/UserProfile');
 const { withTryCatch } = require('../util');
 
-
 const getQueriesData = withTryCatch(async (queries) => {
     const results = {};
 
     const searchValue = queries.search;
     const filterValue = queries.category;
 
-    let searchObj = {}
+    let searchObj = {};
     
     if (searchValue || filterValue) {
         searchObj = {
@@ -16,8 +15,8 @@ const getQueriesData = withTryCatch(async (queries) => {
                 username: { $regex: new RegExp(searchValue, "i") },
                 category: { $regex: new RegExp(filterValue, "i") }
             }]
-        }
-    }
+        };
+    };
     const searchCount = await Profile.countDocuments(searchObj);
 
     const page = parseInt(queries.page || 1);
@@ -31,19 +30,19 @@ const getQueriesData = withTryCatch(async (queries) => {
             page: page + 1,
             limit: limit
         };
-    }
+    };
     if (startIndex > 0) {
         results.previous = {
             page: page - 1,
             limit: limit
         };
-    }
-    results.count = searchCount
+    };
+    results.count = searchCount;
     results.results = await Profile.find(searchObj).limit(limit).skip(startIndex).populate('goals').exec();
 
     return results;
 });
 
 module.exports = {
-    getQueriesData,
+    getQueriesData
 };

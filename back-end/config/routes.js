@@ -6,7 +6,6 @@ const { errroHandler } = require("../middleware/error");
 module.exports = (app) => {
 
     app.use('/api/user', authRoute);
-
     app.use('/api/goals', goalRoute);
     app.use(errroHandler);
 
