@@ -3,17 +3,18 @@ const Goal = require("../../model/Goal");
 const Profile = require("../../model/UserProfile");
 const { withTryCatch } = require("../../util");
 const validateIds = require("../validators/validateModelIds");
+const populateRecursive = require("./helpers");
 
-const createComment = withTryCatch(async (postId, message, userId, parentId) => {
+const createComment = withTryCatch(async (postId, message, ownerId, parentId) => {
 
     const payload = {
         message,
-        userId,
+        ownerId,
         postId,
         parent: parentId
     };
 
-    await validateIds(Profile, [{ userId }]);
+    await validateIds(Profile, [{ userId: ownerId }]);
     const createdComment = await Comment.create(payload);
 
     if (parentId === null) {
@@ -23,14 +24,18 @@ const createComment = withTryCatch(async (postId, message, userId, parentId) => 
     }
 
     if (parentId) {
-        const parentComment = await Comment.findByIdAndUpdate(parentId, {
-            $push: { children: createdComment._id }
-        },
-            { new: true });
+        const parentComment = await Comment.findById(parentId);
 
         createdComment.depth = parentComment.depth + 1;
-        await createdComment.save();
+        try {
+            await createdComment.save();
+        } catch (error) {
+            await Comment.findByIdAndDelete(createdComment._id);
+            throw error;
+        }
 
+        parentComment.children.push(createdComment._id);
+        await parentComment.save();
     };
 
     return createdComment;
@@ -38,27 +43,10 @@ const createComment = withTryCatch(async (postId, message, userId, parentId) => 
 
 const getComments = withTryCatch(async (postId) => {
 
-    if (!postId) {
-        return [];
-    }
+    let comments = await Comment.findOne({ postId }).select('message ownerId depth children');
 
-    const comments = await Comment.findOne({ postId }).populate({
-        path: 'children',
-        select: 'message userId depth createdAt',
-        populate: {
-            path: 'children',
-            select: 'message userId depth createdAt',
-            populate: {
-                path: 'children',
-                select: 'message userId depth createdAt',
-            }
-        }
-    });
+    await populateRecursive(comments);
 
-    console.log(comments);
-    return comments
-
-
-
-})
+    return comments;
+});
 module.exports = { createComment, getComments }
