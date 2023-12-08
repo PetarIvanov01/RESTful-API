@@ -15,6 +15,7 @@ const createComment = withTryCatch(async (postId, message, ownerId, parentId) =>
     };
 
     await validateIds(Profile, [{ userId: ownerId }]);
+
     const createdComment = await Comment.create(payload);
 
     if (parentId === null) {
@@ -38,14 +39,18 @@ const createComment = withTryCatch(async (postId, message, ownerId, parentId) =>
         await parentComment.save();
     };
 
-    return createdComment;
+    return createdComment.populate('children ownerIdProfile');
 });
 
 const getComments = withTryCatch(async (postId) => {
 
-    let comments = await Comment.findOne({ postId }).select('message ownerId depth children');
+    let comments = await Comment.find({ postId })
+        .where({
+            parent: null
+        })
+        .select('message ownerId depth children createdAt');
 
-    await populateRecursive(comments);
+    await Promise.all(comments.map(populateRecursive));
 
     return comments;
 });
