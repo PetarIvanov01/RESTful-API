@@ -5,7 +5,7 @@ async function populateRecursive(comment) {
 
     await comment.populate({
         path: 'children',
-        select: 'message ownerId children depth'
+        select: 'message ownerId children depth createdAt'
     });
 
     await comment.populate({
