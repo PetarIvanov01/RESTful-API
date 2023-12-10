@@ -6,7 +6,7 @@ const commentSchema = new Schema(
         message: {
             type: String,
             required: true,
-            maxlength: [50, 'The comment should not exceed 50 symbols!'],
+            maxlength: [200, 'The comment should not exceed 200 symbols!'],
             minlength: [5, 'The comment should be at least 5 symbols!']
         },
         ownerId: {
